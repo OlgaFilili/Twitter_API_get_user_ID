@@ -8,11 +8,11 @@ tweepy, requests, requests-oathlib, python-dotenv, urllib3
 
 *	All data for authorization and procedure are in .env-file in scripts-directory. Example of the file:
 
-# Provide the consumer key and secret
+#Provide the consumer key and secret
 API_KEY = "ysadfaffsfddf0Y2ih2UJ4"
 API_SECRET = "5IAMGD20HvsadfasdfsdfsdwBq2aueMISVFoKnMYrAVQadUxAJEUI"
 
-# Provide client_ID and client secret
+#Provide client_ID and client secret
 CLIENT_ID= "UTsadfas34nV0RFI6MTpjaQ"
 CLIENT_SECRET= "FsdfvfvUtHW3-KnumUsfasdfsdcsdfaqqQckAT1U8rK"
 
