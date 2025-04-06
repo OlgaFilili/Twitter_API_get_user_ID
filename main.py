@@ -62,68 +62,6 @@ def get_twitter_authorize_url_and_verifier(callback_url: str) -> tuple[str, str]
     authorize_url = handler.get_authorization_url()
     return authorize_url, handler.code_verifier               
 
-#   Request to like the tweet.
-def like_the_tweet(u_id,tweet_to_like, token):
-        retries = 3
-        retry_codes = [500, 502, 503, 504] # INTERNAL_SERVER_ERROR, BAD_GATEWAY, SERVICE_UNAVAILABLE, GATEWAY_TIMEOUT
-        rate_limits_code= 429 # TOO_MANY_REQUESTS
-        
-        url = "https://api.x.com/2/users/{}/likes".format(u_id)
-        payload = {"tweet_id": tweet_to_like}
-        headers = {
-            "Authorization": "Bearer "+token,
-            "Content-Type": "application/json"
-        }
-        date1 = datetime.datetime.today()
-        print(date1.strftime('%d-%m-%Y %H:%M:%S'))
-
-        
-        for n in range(retries):
-            try:
-                response = requests.request("POST", url, json=payload, headers=headers)
-
-                logger.info("The moment of truth! Response status code is:")
-                logger.info(response.status_code)
-                response.raise_for_status()
-                logger.info("The tweet was liked successfully.")
-                logger.info("---------------------------------")
-                print("The tweet was liked successfully.")
-                break
-            except:
-                if response.status_code==rate_limits_code:
-                    logger.error(f"ERROR!!! {response.text}")
-                    #print(f"Error: {response.text}")
-
-                    reset_time = int(response.headers.get("x-rate-limit-reset"))
-                    #print (response.headers.get("x-rate-limit-reset"))
-                    current_time = int(time.time())
-                    wait_time = max(reset_time - current_time, 0)
-                    logger.info("Rate limit exceeded. Retry after {} seconds.".format((n+1)*wait_time))
-                    print(f"Rate limit exceeded. Retry after {(n+1)*wait_time} seconds.")
-##                    if (n==retries-1):
-##                         logger.info("Unsuccessfull execution:(. The tweet wasn`t liked.")
-##                         logger.info()
-##                         print("Unsuccessfull execution:(. The tweet wasn`t liked.")
-##                    
-                    #   Retry after growing intervals according to attempt number
-                    time.sleep((n+1)*wait_time)
-                    continue
-                if response.status_code in retry_codes:
-                    print(f"Error: {response.text}")
-                    logger.error(f"ERROR!!! {response.text}")
-                    logger.info("Retry after {} seconds.".format((n+1)*10))
-                    print(f"Retry after {(n+1)*10} seconds.")
-                    time.sleep((n+1)*10)
-                    continue
-                    
-                response.raise_for_status()
-            finally:
-                if (n==retries-1):
-                         logger.info("Unsuccessfull execution:(. The tweet wasn`t liked.")
-                         logger.info("--------------------------------------------------")
-                         print("Unsuccessfull execution:(. The tweet wasn`t liked.")
-                
-            raise
 def get_user_id(token):
     url="https://api.x.com/2/users/me"
     headers = {
@@ -137,8 +75,10 @@ def get_user_id(token):
                     )
                 )
                 return response.status_code
-            
+                logger.error(f"ERROR!!! {response.text}")
+            print("User ID obtained successfully. Look for in the log-file.")
             logger.info(response.json())
+            logger.info("Get user_ID (and even more) successfully!")
             return response.json()['data']['id']
       
 authorization_url, code_verifier= get_twitter_authorize_url_and_verifier(redirect_uri)
@@ -179,4 +119,4 @@ else:
     logger.info("Let`s know more about user!")
     #like_the_tweet(USER_ID, tweet_to_like_ID, access_token)
     user_ID=get_user_id(access_token)
-    logger.info("Get user_ID (and even more) successfully!")
+
