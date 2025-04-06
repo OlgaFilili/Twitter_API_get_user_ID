@@ -40,16 +40,17 @@ http://127.0.0.1/?state=1asdf344fgesrtgULHzwKU7Y&code=bzJsQXA314ygtrgf3869487tyg
 *	During execution in script-directory log-file(main.log) has written.
 *	The example of log-file in case of successfull execution:
 
-2025-03-13 14:38:58,617: Let's log!
-2025-03-13 14:38:58,619: Have got an authorization URL:
-2025-03-13 14:38:58,619: https://x.com/i/oauth2/authorize?response_type=code&client_id=UTsadfas34nV0RFI6MTpjaQ&redirect_uri=http%3A%2F%2F127.0.0.1&scope=tweet.read+tweet.write+users.read+like.write&state=1asdf344fgesrtgULHzwKU7Y&code_challenge=kJPYj_Ygk9dfgsdgsert34wbdV7wBW95dz8g&code_challenge_method=S256
-2025-03-13 14:39:18,042: Response status code for access token request is:
-2025-03-13 14:39:18,042: 200
-2025-03-13 14:39:18,042: Have got an access token.
+2025-04-06 11:57:34,404: Let's log!
+2025-04-06 11:57:34,406: Have got an authorization URL:
+2025-04-06 11:57:34,406: https://x.com/i/oauth2/authorize?response_type=code&client_id=UTNSbnkxNWY0ZlBON3pPcnV0RFI6MTpjaQ&redirect_uri=http%3A%2F%2F127.0.0.1&scope=tweet.read+users.read&state=Y75bQjJy0pP5zg4AvHkK54sdOw1qRJ&code_challenge=SvWHU1ei16e3e2pE16QhFn6VmEll-E6ESbuswmxGhRU&code_challenge_method=S256
+2025-04-06 11:57:56,237: Response status code for access token request is:
+2025-04-06 11:57:56,237: 200
+2025-04-06 11:57:56,237: Have got an access token.
+2025-04-06 11:57:56,237: Let`s know more about user!
+2025-04-06 11:57:56,486: {'data': {'id': '435634562445345', 'name': 'Name', 'username': 'UserName'}}
+2025-04-06 11:57:56,486: Get user_ID (and even more) successfully!
 
 
-*	In case of errors during execution of the script, there would be corresponding messages with "ERROR!!!"-lines. The rate-limits error provides additional information in log-file about required pause (in seconds) that have to be done before next try.
-* Example of the error-message because of rate-limits exceeded:
 
-2025-03-13 15:23:00,655: ERROR!!! {"title":"Too Many Requests","detail":"Too Many Requests","type":"about:blank","status":429}
-2025-03-13 15:23:00,655: Rate limit exceeded. Retry after 902 seconds.
+*	In case of errors during execution of the script, there would be corresponding messages with "ERROR!!!"-lines. 
+
